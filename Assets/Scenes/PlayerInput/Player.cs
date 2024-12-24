@@ -24,7 +24,7 @@ namespace Players
     public class Player : MonoBehaviour
     {
         [Header("플레이어 팀")] public PlayerTeam team;
-        [Header("플레이어 모션")] public Animator ani;
+        //[Header("플레이어 모션")] public Animator ani;
         [Header("이속")]
         public float moveSpeed;
         [Header("체력")]
@@ -51,7 +51,9 @@ namespace Players
         private float _currentStunTime;
         private int _isFacingRight; 
         private int _currentJump;
-        private static readonly int Behave = Animator.StringToHash("behave");
+        public bool _isJumping;
+        public bool _isBlocking;
+        //private static readonly int Behave = Animator.StringToHash("behave");
 
         protected void SetUpPlayer()
         {
@@ -60,8 +62,10 @@ namespace Players
             _currentStunTime = stunTime;
             _currentUltimateGauge = 0;
             _isFacingRight = team == PlayerTeam.TeamA ? 1 : -1;
+            _isJumping = false;
+            _isBlocking = false;
             //playerStatus = PlayerStatus.Normal;
-            ani.SetInteger(Behave,0);
+            //ani.SetInteger(Behave,0);
             if (team == PlayerTeam.TeamA)
             {
                 _moveMent = AMove;
@@ -146,12 +150,13 @@ namespace Players
 
         protected void CheckFloor()
         {
-            if (Physics2D.OverlapCircle(footCollider.gameObject.transform.position, 0.1f, ground))
+            //Debug.Log(1);
+            if (Physics2D.OverlapCircle(footCollider.gameObject.transform.position, 1f, ground))
             {
                 _currentJump = 0;
                 
             }
-            else if (_currentJump == 0 && Physics2D.OverlapCircle(footCollider.gameObject.transform.position, 0.1f, ground) == false)
+            else if (_currentJump == 0 && Physics2D.OverlapCircle(footCollider.gameObject.transform.position, 1f, ground) == false)
             {
                 _currentJump += 1;
             }
@@ -184,23 +189,41 @@ namespace Players
         {
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    DefaultSkill();
+                    if (_isJumping)
+                    {
+                        DefaultSkillUp();
+                    }
+                    else if (_isBlocking)
+                    {
+                    _isBlocking = false;
+                        DefaultSkillDown();
+                    }
+                    else
+                    {
+                        DefaultSkillMid();                
+                    }
+                    
                 }
-                else if(Input.GetKeyDown(KeyCode.E))
+                if(Input.GetKeyDown(KeyCode.E))
                 {
                     AbilitySkill();
                 }
-                else if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R))
                 {
                     UltimateSkill();
                 }
-                else if(Input.GetKeyDown(KeyCode.F))
+                if(Input.GetKeyDown(KeyCode.S)&&!_isJumping)
                 {
                     BlockSkill();
+                _isBlocking = true;
                 }
-                if (Input.GetKeyDown(KeyCode.W)&&_currentJump<maxJump)
+                if (Input.GetKeyUp(KeyCode.S))
                 {
-                    ani.SetInteger(Behave,2);
+                    _isBlocking = false;
+                }
+                if (Input.GetKeyDown(KeyCode.W)&&_currentJump<maxJump&&!_isBlocking)
+                {
+                //ani.SetInteger(Behave,2);
                     rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }
@@ -211,31 +234,56 @@ namespace Players
         {
                 if (Input.GetKeyDown(KeyCode.Y))
                 {
-                    DefaultSkill();
-                }
-                else if (Input.GetKeyDown(KeyCode.I))
+                    if (_isJumping)
+                    {
+                        DefaultSkillUp();
+                    }
+                    else if (_isBlocking)
+                    {
+                        _isBlocking = false;
+                        DefaultSkillDown();
+                    }
+                    else
+                    {
+                        DefaultSkillMid();
+                    }
+            }
+                if (Input.GetKeyDown(KeyCode.I))
                 {
                     AbilitySkill();
                 }
-                else if (Input.GetKeyDown(KeyCode.O))
+                if (Input.GetKeyDown(KeyCode.O))
                 {
                     UltimateSkill();
                 }
-                else if (Input.GetKeyDown(KeyCode.L))
+                if (Input.GetKeyDown(KeyCode.J) && !_isJumping)
                 {
                     BlockSkill();
+                _isBlocking = true;
                 }
-                if (Input.GetKeyDown(KeyCode.U)&&_currentJump<maxJump)
+                if (Input.GetKeyUp(KeyCode.J))
                 {
-                    ani.SetInteger(Behave,2);
-                    rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
+                _isBlocking = false;
+                }
+            if (Input.GetKeyDown(KeyCode.U)&&_currentJump<maxJump&&!_isBlocking)
+                {
+                //ani.SetInteger(Behave,2);
+                rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }
         }
 
-        public virtual void DefaultSkill()
+        public virtual void DefaultSkillMid()
         {
-            Debug.Log(team+"used defaultskill");
+            Debug.Log(team+" used defaultskill to midline");
+        }
+        public virtual void DefaultSkillUp()
+        {
+            Debug.Log(team + " used defaultskill to top");
+        }
+        public virtual void DefaultSkillDown()
+        {
+            Debug.Log(team + " used defaultskill to bottom");
         }
 
         public virtual void AbilitySkill()
