@@ -24,12 +24,13 @@ namespace Players
         
         private void OnTriggerExit2D(Collider2D other)
         {
+
             if (other.CompareTag("ground"))
             {
                 player._isJumping = true;
+                player.ani.SetInteger("bahave", 2);
             }
 
-            //player.ani.SetInteger("bahave",2);
         }
 
     }

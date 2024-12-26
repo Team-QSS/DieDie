@@ -236,7 +236,6 @@ namespace Players
                 }
                 if (Input.GetKeyDown(KeyCode.W)&&_currentJump<maxJump&&!_isBlocking)
                 {
-                ani.SetInteger(Behave,2);
                     rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }
@@ -280,8 +279,7 @@ namespace Players
                 }
             if (Input.GetKeyDown(KeyCode.U)&&_currentJump<maxJump&&!_isBlocking)
                 {
-                ani.SetInteger(Behave,2);
-                rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
+                    rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }
         }
