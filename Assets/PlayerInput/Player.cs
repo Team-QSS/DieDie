@@ -24,7 +24,7 @@ namespace Players
     public class Player : MonoBehaviour
     {
         [Header("플레이어 팀")] public PlayerTeam team;
-        //[Header("플레이어 모션")] public Animator ani;
+        [Header("플레이어 모션")] public Animator ani;
         [Header("이속")]
         public float moveSpeed;
         [Header("체력")]
@@ -51,9 +51,10 @@ namespace Players
         private float _currentStunTime;
         private int _isFacingRight; 
         private int _currentJump;
+        protected int horizontal;
         public bool _isJumping;
         public bool _isBlocking;
-        //private static readonly int Behave = Animator.StringToHash("behave");
+        private static readonly int Behave = Animator.StringToHash("behave");
 
         protected void SetUpPlayer()
         {
@@ -65,7 +66,7 @@ namespace Players
             _isJumping = false;
             _isBlocking = false;
             //playerStatus = PlayerStatus.Normal;
-            //ani.SetInteger(Behave,0);
+            ani.SetInteger(Behave,0);
             if (team == PlayerTeam.TeamA)
             {
                 _moveMent = AMove;
@@ -170,7 +171,7 @@ namespace Players
 
         protected void AMove()
         {
-            var horizontal = 0;
+            horizontal = 0;
             if (Input.GetKey(KeyCode.A))
             {
                 horizontal = -1;
@@ -181,8 +182,20 @@ namespace Players
                 horizontal = 1;
                 _isFacingRight = 1;
             }
+
             transform.localScale = new Vector3(_isFacingRight, transform.localScale.y);
             rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
+        }
+        protected void PlayerBehaveCheck()
+        {
+            if (horizontal != 0)
+            {
+                ani.SetInteger(Behave, 1);
+            }
+            else
+            {
+                ani.SetInteger(Behave, 0);
+            }
         }
 
         protected void ASkillSet()
@@ -223,7 +236,7 @@ namespace Players
                 }
                 if (Input.GetKeyDown(KeyCode.W)&&_currentJump<maxJump&&!_isBlocking)
                 {
-                //ani.SetInteger(Behave,2);
+                ani.SetInteger(Behave,2);
                     rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }
@@ -267,7 +280,7 @@ namespace Players
                 }
             if (Input.GetKeyDown(KeyCode.U)&&_currentJump<maxJump&&!_isBlocking)
                 {
-                //ani.SetInteger(Behave,2);
+                ani.SetInteger(Behave,2);
                 rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }

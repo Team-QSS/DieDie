@@ -13,6 +13,7 @@ public class ProtoPlayer : Player
         CheckSkill();
         CheckMovement();
         CheckFloor();
+        PlayerBehaveCheck();  
 
     }
 }
