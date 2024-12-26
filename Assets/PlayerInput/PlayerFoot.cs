@@ -28,7 +28,6 @@ namespace Players
             if (other.CompareTag("ground"))
             {
                 player._isJumping = true;
-                player.ani.SetInteger("bahave", 2);
             }
 
         }

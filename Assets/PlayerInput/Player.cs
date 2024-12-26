@@ -54,7 +54,6 @@ namespace Players
         protected int horizontal;
         public bool _isJumping;
         public bool _isBlocking;
-        private static readonly int Behave = Animator.StringToHash("behave");
 
         protected void SetUpPlayer()
         {
@@ -66,7 +65,7 @@ namespace Players
             _isJumping = false;
             _isBlocking = false;
             //playerStatus = PlayerStatus.Normal;
-            ani.SetInteger(Behave,0);
+            ani.SetInteger("behave",0);
             if (team == PlayerTeam.TeamA)
             {
                 _moveMent = AMove;
@@ -169,6 +168,26 @@ namespace Players
             _moveMent.Invoke();
         }
 
+        protected void PlayerBehaveCheck()
+        {
+            int behaveState = 0;
+
+            if (_isJumping)
+            {
+                behaveState = 2;
+            }
+            else if (horizontal != 0)
+            {
+                behaveState = 1;
+            }
+            else if (_isBlocking)
+            {
+                
+            }
+
+            ani.SetInteger("behave", behaveState);
+        }
+
         protected void AMove()
         {
             horizontal = 0;
@@ -186,17 +205,7 @@ namespace Players
             transform.localScale = new Vector3(_isFacingRight, transform.localScale.y);
             rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
         }
-        protected void PlayerBehaveCheck()
-        {
-            if (horizontal != 0)
-            {
-                ani.SetInteger(Behave, 1);
-            }
-            else
-            {
-                ani.SetInteger(Behave, 0);
-            }
-        }
+
 
         protected void ASkillSet()
         {
