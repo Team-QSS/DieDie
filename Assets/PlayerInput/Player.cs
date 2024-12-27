@@ -24,7 +24,7 @@ namespace Players
     public class Player : MonoBehaviour
     {
         [Header("플레이어 팀")] public PlayerTeam team;
-        //[Header("플레이어 모션")] public Animator ani;
+        [Header("플레이어 모션")] public Animator ani;
         [Header("이속")]
         public float moveSpeed;
         [Header("체력")]
@@ -51,9 +51,10 @@ namespace Players
         private float _currentStunTime;
         private int _isFacingRight; 
         private int _currentJump;
+        protected int horizontal;
+        public bool _isAttacking;
         public bool _isJumping;
         public bool _isBlocking;
-        //private static readonly int Behave = Animator.StringToHash("behave");
 
         protected void SetUpPlayer()
         {
@@ -65,7 +66,7 @@ namespace Players
             _isJumping = false;
             _isBlocking = false;
             //playerStatus = PlayerStatus.Normal;
-            //ani.SetInteger(Behave,0);
+            ani.SetInteger("behave",0);
             if (team == PlayerTeam.TeamA)
             {
                 _moveMent = AMove;
@@ -168,26 +169,49 @@ namespace Players
             _moveMent.Invoke();
         }
 
+        protected void PlayerBehaveCheck()
+        {
+            int behaveState = 0;
+            if (!_isAttacking)
+            {
+                if (_isJumping)
+                {
+                    behaveState = 2;
+                }
+                else if (horizontal != 0)
+                {
+                    behaveState = 1;
+                }
+                else if (_isBlocking)
+                {
+                    behaveState = 3;
+                }
+                ani.SetInteger("behave", behaveState);
+            }
+        }
+
         protected void AMove()
         {
-            var horizontal = 0;
-            if (Input.GetKey(KeyCode.A))
-            {
-                horizontal = -1;
-                _isFacingRight = -1;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                horizontal = 1;
-                _isFacingRight = 1;
-            }
-            transform.localScale = new Vector3(_isFacingRight, transform.localScale.y);
-            rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
+                horizontal = 0;
+                if (Input.GetKey(KeyCode.A) && !_isBlocking && !_isAttacking)
+                {
+                    horizontal = -1;
+                    _isFacingRight = -1;
+                }
+                else if (Input.GetKey(KeyCode.D) && !_isBlocking && !_isAttacking)
+                {
+                    horizontal = 1;
+                    _isFacingRight = 1;
+                }
+
+                transform.localScale = new Vector3(_isFacingRight, transform.localScale.y);
+                rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
         }
+
 
         protected void ASkillSet()
         {
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Q)&&!_isAttacking)
                 {
                     if (_isJumping)
                     {
@@ -204,11 +228,11 @@ namespace Players
                     }
                     
                 }
-                if(Input.GetKeyDown(KeyCode.E))
+                if(Input.GetKeyDown(KeyCode.E) && !_isAttacking)
                 {
                     AbilitySkill();
                 }
-                if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R) && !_isAttacking)
                 {
                     UltimateSkill();
                 }
@@ -223,7 +247,6 @@ namespace Players
                 }
                 if (Input.GetKeyDown(KeyCode.W)&&_currentJump<maxJump&&!_isBlocking)
                 {
-                //ani.SetInteger(Behave,2);
                     rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }
@@ -232,7 +255,7 @@ namespace Players
 
         protected void BSkillSet()
         {
-                if (Input.GetKeyDown(KeyCode.Y))
+                if (Input.GetKeyDown(KeyCode.Y) && !_isAttacking)
                 {
                     if (_isJumping)
                     {
@@ -248,11 +271,11 @@ namespace Players
                         DefaultSkillMid();
                     }
             }
-                if (Input.GetKeyDown(KeyCode.I))
+                if (Input.GetKeyDown(KeyCode.I) && !_isAttacking)
                 {
                     AbilitySkill();
                 }
-                if (Input.GetKeyDown(KeyCode.O))
+                if (Input.GetKeyDown(KeyCode.O) && !_isAttacking)
                 {
                     UltimateSkill();
                 }
@@ -267,8 +290,7 @@ namespace Players
                 }
             if (Input.GetKeyDown(KeyCode.U)&&_currentJump<maxJump&&!_isBlocking)
                 {
-                //ani.SetInteger(Behave,2);
-                rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
+                    rb.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
                     _currentJump++;
                 }
         }
@@ -276,19 +298,26 @@ namespace Players
         public virtual void DefaultSkillMid()
         {
             Debug.Log(team+" used defaultskill to midline");
+            _isAttacking = true;
+            ani.SetTrigger("defaultattack1");
         }
         public virtual void DefaultSkillUp()
         {
             Debug.Log(team + " used defaultskill to top");
+            _isAttacking = true;
+            ani.SetTrigger("defaulthighattack1");
         }
         public virtual void DefaultSkillDown()
         {
             Debug.Log(team + " used defaultskill to bottom");
+            _isAttacking = true;
+            ani.SetTrigger("defaultlowattack1");
         }
 
         public virtual void AbilitySkill()
         {
             Debug.Log(team+"used abilityskill");
+            _isAttacking = true;
         }
 
         public virtual void BlockSkill()
@@ -299,22 +328,28 @@ namespace Players
         public virtual void UltimateSkill()
         {
             Debug.Log(team+"used ultimateskill");
+            _isAttacking = true;
         }
         protected void BMove()
         {
-            var horizontal = 0;
-            if (Input.GetKey(KeyCode.H))
-            {
-                horizontal = -1;
-                _isFacingRight = -1;
-            }
-            else if (Input.GetKey(KeyCode.K))
-            {
-                horizontal = 1;
-                _isFacingRight = 1;
-            }
+                var horizontal = 0;
+                if (Input.GetKey(KeyCode.H) && !_isBlocking && !_isAttacking)
+                {
+                    horizontal = -1;
+                    _isFacingRight = -1;
+                }
+                else if (Input.GetKey(KeyCode.K) && !_isBlocking&& !_isAttacking)
+                {
+                    horizontal = 1;
+                    _isFacingRight = 1;
+                }
             transform.localScale = new Vector3(_isFacingRight, transform.localScale.y);
-            rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
+                rb.linearVelocity = new Vector2(horizontal * moveSpeed, rb.linearVelocity.y);
+        }
+        public void EndAttack()
+        {
+            _isAttacking = false;
+            PlayerBehaveCheck();
         }
     }
 }
