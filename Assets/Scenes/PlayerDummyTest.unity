@@ -361,7 +361,7 @@ MonoBehaviour:
   blockBox:
   - {fileID: 0}
   - {fileID: 0}
-  jumpForce: 16
+  jumpForce: 13
   maxJump: 1
   ground:
     serializedVersion: 2
