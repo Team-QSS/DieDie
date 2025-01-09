@@ -20,6 +20,7 @@ public class SkillSelectManager : MonoBehaviour
     }
     private void Start()
     {
+        //스킬을 초기화하는 부분 위에서 서버에서 저장된 데이터를 불러오고 만약 데이터가 없다면 아래 초기값을 적용
         if(currentPType == PlayerType.Player1)
         {
             Player1Infomations.instance.InitAllSkill();
@@ -30,6 +31,7 @@ public class SkillSelectManager : MonoBehaviour
             Player2Infomations.instance.InitAllSkill();
         }
     }
+    //아래 코드는 UI를 업데이트하는 함수입니다.
     public void UpdateSkillUI(int slotCode)
     {
         if (currentPType == PlayerType.Player1)

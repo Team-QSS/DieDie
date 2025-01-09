@@ -36,3 +36,4 @@ public class Player1Infomations :MonoBehaviour
         SkillSelectManager.instance.UpdateSkillUI(3);
     }
 }
+//플레이어 두개를 한 컴퓨터 안에서 돌려도 게임이 되게 하라고 했기 때문에 어쩔 수 없이 인포를 나누는 하드코딩을 했습니다..
