@@ -4569,11 +4569,11 @@ MonoBehaviour:
   - image: {fileID: 1500852029}
     name: {fileID: 1952077660}
     description: {fileID: 2062780350}
-    descriptionModel: {fileID: 2062780348}
+    descriptionModel: {fileID: 2086971284}
   - image: {fileID: 716933718}
     name: {fileID: 1340253722}
     description: {fileID: 258415916}
-    descriptionModel: {fileID: 258415914}
+    descriptionModel: {fileID: 1434331299}
 --- !u!114 &1185441783
 MonoBehaviour:
   m_ObjectHideFlags: 0
