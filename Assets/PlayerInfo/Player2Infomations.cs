@@ -28,4 +28,10 @@ public class Player2Infomations :MonoBehaviour
         }
         SkillSelectManager.instance.UpdateSkillUI(slotCode);
     }
+    public void InitAllSkill()
+    {
+        playerMainSkill = SkillSets.instance.originSkill;
+        playerSubSkill = SkillSets.instance.originSkill;
+        playerUltimateSkill = SkillSets.instance.originSkill;
+    }
 }
