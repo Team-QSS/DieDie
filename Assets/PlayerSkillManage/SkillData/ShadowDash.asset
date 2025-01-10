@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25f00cd5a786a649b6efc842d6fc0f5, type: 3}
+  m_Name: ShadowDash
+  m_EditorClassIdentifier: 
+  id: 4
+  skillName: "\uADF8\uB9BC\uC790 \uB300\uC26C"
+  description: "\uC2DC\uC804 \uC2DC \uC804\uBC29\uC73C\uB85C \uB3CC\uC9C4\uD55C\uB2E4.\n\uB3CC\uC9C4
+    \uC2DC \uD50C\uB808\uC774\uC5B4\uB294 \uD53C\uACA9\uBC1B\uC9C0 \uC54A\uB294\uB2E4"
+  icon: {fileID: -8527442550737655860, guid: ebda3c2711f3bc843ae179b3ca8ee753, type: 3}
