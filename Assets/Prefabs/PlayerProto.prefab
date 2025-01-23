@@ -2139,8 +2139,8 @@ MonoBehaviour:
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
   SwitchTransformSpaceWhenParented: 0
-  Interpolate: 0
-  SlerpPosition: 0
+  Interpolate: 1
+  SlerpPosition: 1
 --- !u!114 &2475921910756066117
 MonoBehaviour:
   m_ObjectHideFlags: 0
