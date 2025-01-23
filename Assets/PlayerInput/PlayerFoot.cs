@@ -1,16 +1,18 @@
 using System;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Players
 {
-    public class PlayerFoot : MonoBehaviour
+    public class PlayerFoot : NetworkBehaviour
     {
         public Player player;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("ground"))
+
+            if (other.CompareTag("ground")&&IsOwner)
             {
                 player._isJumping = false;
             }
@@ -21,7 +23,7 @@ namespace Players
         private void OnTriggerExit2D(Collider2D other)
         {
 
-            if (other.CompareTag("ground"))
+            if (other.CompareTag("ground")&&IsOwner)
             {
                 player._isJumping = true;
             }

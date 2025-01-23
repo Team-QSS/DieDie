@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 2914948335263209089}
   - component: {fileID: 3851830545466863574}
   - component: {fileID: 1304348465838188568}
+  - component: {fileID: 468368276523057460}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -210,6 +211,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &468368276523057460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676727724591817650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 1304348465838188568}
 --- !u!1 &820145882213799262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,7 +1948,6 @@ GameObject:
   - component: {fileID: 6209003867475597801}
   - component: {fileID: 4260464394619546347}
   - component: {fileID: 1733940609650056603}
-  - component: {fileID: 699498355263044202}
   - component: {fileID: 1925560583895619945}
   - component: {fileID: 2475921910756066117}
   m_Layer: 0
@@ -2090,21 +2105,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.3454053, y: 2.3666413}
   m_EdgeRadius: 0
---- !u!114 &699498355263044202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7327352555191440642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList: []
-  m_Animator: {fileID: 1304348465838188568}
 --- !u!114 &1925560583895619945
 MonoBehaviour:
   m_ObjectHideFlags: 0

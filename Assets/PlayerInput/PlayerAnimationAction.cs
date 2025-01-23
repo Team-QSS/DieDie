@@ -1,12 +1,17 @@
 using Players;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerAnimationAction : MonoBehaviour
+public class PlayerAnimationAction : NetworkBehaviour
 {
     public Player player;
     public void EndAttack()
     {
-        player.EndAttack();
+        if (IsOwner)
+        {
+            player.EndAttack();
+        }
+
     }
 }
 
