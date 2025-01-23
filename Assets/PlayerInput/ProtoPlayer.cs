@@ -15,7 +15,7 @@ public class ProtoPlayer : Player
 
     void Update()
     {
-        if (IsOwner)
+        if (IsOwner||IsHost)
         {
             CheckSkill();
             CheckMovement();
