@@ -6,7 +6,11 @@ public class ProtoPlayer : Player
 {
     void Start()
     {
-        SetUpPlayer();
+        if (IsOwner)
+        {
+            SetUpPlayer();
+        }
+
     }
 
     void Update()
