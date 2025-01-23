@@ -1,27 +1,19 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Players
 {
-    public enum PlayerType
-    {
-        Ignite,
-        Mister286,
-        Justion,
-        MasterMoon,
-        BloodyDevil,
-        
-    }
     public enum PlayerTeam
     {
         TeamA,
         TeamB
     }
 
-    public class Player : MonoBehaviour
+    public class Player : NetworkBehaviour
     {
         [Header("플레이어 팀")] public PlayerTeam team;
         [Header("플레이어 모션")] public Animator ani;

@@ -1,4 +1,5 @@
 using Players;
+using Unity.Netcode;
 using UnityEngine;
 
 public class ProtoPlayer : Player
@@ -10,10 +11,12 @@ public class ProtoPlayer : Player
 
     void Update()
     {
-        CheckSkill();
-        CheckMovement();
-        CheckFloor();
-        PlayerBehaveCheck();  
-
+        if (IsOwner)
+        {
+            CheckSkill();
+            CheckMovement();
+            CheckFloor();
+            PlayerBehaveCheck();
+        }
     }
 }
