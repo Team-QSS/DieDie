@@ -160,7 +160,7 @@ namespace Players
         {
             _moveMent.Invoke();
         }
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         protected void PlayerBehaveCheckServerRpc()
         {
             int behaveState = 0;
