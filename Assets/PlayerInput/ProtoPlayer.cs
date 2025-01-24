@@ -6,21 +6,19 @@ public class ProtoPlayer : Player
 {
     void Start()
     {
-        if (IsOwner)
-        {
             SetUpPlayer();
-        }
+        
 
     }
 
     void Update()
     {
-        if (IsOwner||IsHost)
+        if (IsOwner)
         {
             CheckSkill();
             CheckMovement();
             CheckFloor();
-            PlayerBehaveCheck();
+            PlayerBehaveCheckServerRpc();
         }
     }
 }

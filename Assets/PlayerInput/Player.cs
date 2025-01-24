@@ -160,8 +160,8 @@ namespace Players
         {
             _moveMent.Invoke();
         }
-
-        protected void PlayerBehaveCheck()
+        [ServerRpc]
+        protected void PlayerBehaveCheckServerRpc()
         {
             int behaveState = 0;
             if (!_isAttacking)
@@ -341,7 +341,7 @@ namespace Players
         public void EndAttack()
         {
             _isAttacking = false;
-            PlayerBehaveCheck();
+            PlayerBehaveCheckServerRpc();
         }
     }
 }
